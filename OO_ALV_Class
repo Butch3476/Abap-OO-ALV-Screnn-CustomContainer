@@ -1,0 +1,45 @@
+*&---------------------------------------------------------------------*
+*& Include zha_chp55_oo_alv_klass
+*&---------------------------------------------------------------------*
+
+class lcl_app definition.
+  public section.
+    methods:
+      constructor,
+      display_alv.
+
+  private section.
+    data:
+      mo_container type ref to cl_gui_custom_container,
+      mo_alv       type ref to cl_gui_alv_grid,
+      mt_scarr     type table of scarr.
+endclass.
+
+class lcl_app implementation.
+
+  method constructor.
+    " Die Daten abrufen
+    select * from scarr into table mt_scarr.
+  endmethod.
+
+  method display_alv.
+
+    create object mo_container
+      exporting
+        container_name = 'CC_OO_ALV'.                  " Name of the Screen CustCtrl Name to Link Container To
+
+    create object mo_alv
+      exporting
+        i_parent = mo_container.
+
+    mo_alv->set_table_for_first_display(
+    exporting
+        i_structure_name = 'SCARR'
+        is_layout = value lvc_s_layo( zebra = abap_true )
+    changing
+        it_outtab = mt_scarr
+     ).
+
+  endmethod.
+
+endclass.
