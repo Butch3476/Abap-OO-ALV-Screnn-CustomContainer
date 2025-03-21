@@ -1,0 +1,18 @@
+*&---------------------------------------------------------------------*
+*& Report zha_chp55_oo_alv
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+report zha_chp55_oo_alv.
+
+include zha_chp55_oo_alv_klass.
+data: go_app type ref to lcl_app.
+
+include zha_chp55_oo_alv_pbo.
+include zha_chp55_oo_alv_pai.
+
+
+start-of-selection.
+
+create object go_app.
+call screen 0100.
